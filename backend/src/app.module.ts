@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { CitiesModule } from './cities/cities.module';
+import { LocationsModule } from './locations/locations.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { CitiesModule } from './cities/cities.module';
       }),
     }),
     CitiesModule,
+    LocationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

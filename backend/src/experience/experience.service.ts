@@ -1,7 +1,61 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { experiences, locations, slots } from '../database/experience-list';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Experience } from './entities/experience.entity';
+import { Repository } from 'typeorm';
+import {
+  CreateExperienceDto,
+  CreateLocationDto,
+} from './dto/create-experience.dto';
+import { Locations } from './entities/location.entity';
 @Injectable()
 export class ExperienceService {
+  constructor(
+    @InjectRepository(Experience)
+    private readonly experiencesRepository: Repository<Experience>,
+
+    @InjectRepository(Locations)
+    private readonly locationsRepository: Repository<Locations>,
+  ) {}
+
+  async findAll() {
+    return await this.experiencesRepository.find();
+  }
+
+  async createNewLocation(locationDto: CreateLocationDto) {
+    const experience = await this.experiencesRepository.findOne({
+      where: { id: locationDto.experienceId },
+    });
+
+    if (!experience) {
+      throw new NotFoundException('Experience not found');
+    }
+
+    const newLocation = this.locationsRepository.create({
+      name: locationDto.name,
+      experienceId: locationDto.experienceId,
+    });
+
+    return this.locationsRepository.save(newLocation);
+  }
+
+  async deleteExperience(id: string) {
+    const experience = await this.experiencesRepository.findOne({
+      where: { id: parseInt(id) },
+    });
+
+    if (!experience) {
+      throw new NotFoundException('Experience not found');
+    }
+
+    return await this.experiencesRepository.remove(experience);
+  }
+
+  async createOne(experienceDto: CreateExperienceDto) {
+    const newExperience = this.experiencesRepository.create(experienceDto);
+    return await this.experiencesRepository.save(newExperience);
+  }
+
   getAllExperiences() {
     // join all three tables
     const returnData = slots.map((s) => {

@@ -1,5 +1,17 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ExperienceService } from './experience.service';
+import {
+  CreateExperienceDto,
+  CreateLocationDto,
+} from './dto/create-experience.dto';
 
 @Controller('experience')
 export class ExperienceController {
@@ -7,7 +19,23 @@ export class ExperienceController {
 
   @Get()
   getAllExperiences() {
-    return this.experienceService.getAllExperiences();
+    return this.experienceService.findAll();
+  }
+
+  @Post()
+  createNewExperience(@Body() experienceDto: CreateExperienceDto) {
+    return this.experienceService.createOne(experienceDto);
+  }
+
+  @Post(':id')
+  createNewLocation(@Body() locationDto: CreateLocationDto) {
+    return this.experienceService.createNewLocation(locationDto);
+  }
+
+  @Delete(':id')
+  deleteExperience(@Param('id') id: string) {
+    console.log(typeof id);
+    return this.experienceService.deleteExperience(id);
   }
 
   // filter experience by id, location, time frame. id is required and others are optional
