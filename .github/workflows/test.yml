@@ -10,13 +10,13 @@ jobs:
             postgres:
                 image: postgres:14
                 env:
-                    POSTGRES_USER: testuser
+                    POSTGRES_USER: postgres
                     POSTGRES_PASSWORD: testpassword
-                    POSTGRES_DB: testdb
+                    POSTGRES_DB: demo
                 ports:
                     - 5432:5432
                 options: >-
-                    --health-cmd="pg_isready -U testuser"
+                    --health-cmd="pg_isready -U postgres"
                     --health-interval=10s
                     --health-timeout=5s
                     --health-retries=5
@@ -24,7 +24,7 @@ jobs:
         env:
             DB_HOST: localhost
             DB_PORT: 5432
-            DB_USERNAME: testuser
+            DB_USERNAME: postgres
             DB_PASSWORD: testpassword
             DB_NAME: demo
             NODE_ENV: test
@@ -43,7 +43,7 @@ jobs:
 
             - name: Wait for PostgreSQL to be ready
               run: |
-                  until pg_isready -h localhost -p 5432 -U testuser; do
+                  until pg_isready -h localhost -p 5432 -U postgres; do
                     echo "Waiting for PostgreSQL..."
                     sleep 1
                   done
