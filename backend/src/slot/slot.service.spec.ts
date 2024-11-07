@@ -1,15 +1,15 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { LocationsService } from "./locations.service";
+import { SlotService } from "./slot.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Experience } from "../experience/entities/experience.entity";
-import { Location } from "./entities/location.entity";
+import { Location } from "../locations/entities/location.entity";
+import { Slot } from "./entities/slot.entity";
 
-describe("LocationsService", () => {
-	// let service: LocationsService;
+describe("SlotService", () => {
+	// let service: SlotService;
 
 	// beforeEach(async () => {
 	// 	const module: TestingModule = await Test.createTestingModule({
-	// 		providers: [LocationsService],
+	// 		providers: [SlotService],
 	// 		imports: [
 	// 			TypeOrmModule.forRoot({
 	// 				type: "postgres",
@@ -18,11 +18,11 @@ describe("LocationsService", () => {
 	// 				synchronize: true,
 	// 				dropSchema: true,
 	// 			}),
-	// 			TypeOrmModule.forFeature([Experience, Location]),
+	// 			TypeOrmModule.forFeature([Slot, Location]),
 	// 		],
 	// 	}).compile();
 
-	// 	service = module.get<LocationsService>(LocationsService);
+	// 	service = module.get<SlotService>(SlotService);
 	// });
 
 	// it("should be defined", () => {
