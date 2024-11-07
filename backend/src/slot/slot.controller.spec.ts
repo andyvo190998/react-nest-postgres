@@ -4,7 +4,7 @@ import { SlotService } from "./slot.service";
 
 describe("SlotController", () => {
 	let controller: SlotController;
-
+	let test;
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			controllers: [SlotController],
