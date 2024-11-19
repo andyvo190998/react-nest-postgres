@@ -31,6 +31,7 @@ describe("ExperienceController", () => {
 	// });
 
 	it("should be defined", () => {
+		console.log(123);
 		expect(10).toBe(10);
 	});
 
