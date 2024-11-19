@@ -39,7 +39,7 @@ jobs:
                   node-version: "18"
 
             - name: Install dependencies
-              run: npm install
+              run: cd backend && npm install
 
             - name: Wait for PostgreSQL to be ready
               run: |
@@ -48,8 +48,8 @@ jobs:
                     sleep 1
                   done
 
-            # - name: Run migrations
-            #   run: npm run migration:run # Ensure you have a script to run migrations
+            - name: Run migrations
+              run: cd backend && npm run migration:run # Ensure you have a script to run migrations
 
             - name: Run tests
-              run: npm run test:ci
+              run: cd backend && npm run test:ci
